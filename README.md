@@ -8,7 +8,9 @@ Aplicativo desktop simples para converter arquivos **DNG** (Digital Negative) pa
 
 ## Funcionalidades
 
-- **Seleção flexível** — escolha uma pasta inteira ou arquivos individuais
+- **Menu de contexto do Windows** — clique direito em qualquer pasta para converter DNGs
+- **Busca recursiva** — encontra arquivos DNG em subpastas automaticamente
+- **Seleção flexível** — escolha uma pasta inteira ou arquivos individuais (GUI)
 - **Formato de saída** — JPG ou PNG, com controle de qualidade para JPG (1–100)
 - **Conversão em cascata** — tenta múltiplos métodos para máxima compatibilidade:
   1. `rawpy` (LibRaw) — melhor qualidade para RAW puro
@@ -29,7 +31,7 @@ Aplicativo desktop simples para converter arquivos **DNG** (Digital Negative) pa
 
 ```bash
 # Clone o repositório
-git clone https://github.com/lucasgearhead/dng-to-jpg-or-png.git
+git clone https://github.com/lucasftas/dng-to-jpg-or-png.git
 cd dng-to-jpg-or-png
 
 # Instale as dependências
@@ -42,15 +44,46 @@ Para máxima compatibilidade com arquivos DNG exóticos, instale o [ImageMagick]
 
 ## Uso
 
+### Menu de Contexto (recomendado)
+
+Instale o menu de contexto do Windows uma vez:
+
+```bash
+python dng_converter.py install
+```
+
+Agora basta **clicar com botão direito** em qualquer pasta no Explorer e escolher:
+- **Converter DNG → JPG** — converte todos os DNGs da pasta e subpastas para JPG (qualidade 95)
+- **Converter DNG → PNG** — converte todos os DNGs da pasta e subpastas para PNG
+
+Para remover o menu de contexto:
+
+```bash
+python dng_converter.py uninstall
+```
+
+### Interface Gráfica (GUI)
+
 ```bash
 python dng_converter.py
 ```
 
-1. Clique em **Selecionar Pasta** (converte todos os `.dng` da pasta) ou **Selecionar Arquivo(s)** (escolha arquivos específicos)
-2. Escolha o formato: **JPG** ou **PNG**
-3. Ajuste a qualidade JPG se necessário (padrão: 95)
-4. Clique em **Converter**
-5. Acompanhe o progresso na barra e no log
+1. Clique em **Selecionar Pasta** ou **Selecionar Arquivo(s)**
+2. Marque **Buscar em subpastas** se quiser busca recursiva
+3. Escolha o formato: **JPG** ou **PNG**
+4. Ajuste a qualidade JPG se necessário (padrão: 95)
+5. Clique em **Converter**
+6. Acompanhe o progresso na barra e no log
+
+### Linha de Comando (CLI)
+
+```bash
+# Converter pasta inteira (recursivo por padrão)
+python dng_converter.py convert "C:\Fotos\Viagem" --format jpg --quality 90
+
+# Converter sem buscar em subpastas
+python dng_converter.py convert "C:\Fotos" --format png --no-recursive
+```
 
 ## Estrutura do Projeto
 
