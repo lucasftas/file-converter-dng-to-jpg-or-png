@@ -1,117 +1,104 @@
 # DNG to JPG/PNG Converter
 
-Aplicativo desktop simples para converter arquivos **DNG** (Digital Negative) para **JPG** ou **PNG** em lote.
+> Converta arquivos **DNG** para **JPG** ou **PNG** com um clique — via interface gráfica, menu de contexto do Windows ou linha de comando.
 
 ![Python](https://img.shields.io/badge/Python-3.12+-blue?logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
-## Funcionalidades
+---
 
-- **Menu de contexto do Windows** — clique direito em qualquer pasta para converter DNGs
-- **Busca recursiva** — encontra arquivos DNG em subpastas automaticamente
-- **Seleção flexível** — escolha uma pasta inteira ou arquivos individuais (GUI)
-- **Formato de saída** — JPG ou PNG, com controle de qualidade para JPG (1–100)
-- **Conversão em cascata** — tenta múltiplos métodos para máxima compatibilidade:
-  1. `rawpy` (LibRaw) — melhor qualidade para RAW puro
-  2. `Pillow` (TIFF) — DNG é baseado em TIFF, funciona com a maioria dos arquivos
-  3. `ImageMagick` (subprocess) — fallback final, se instalado no sistema
-- **Salva ao lado do original** — mesmo diretório, mesmo nome, só muda a extensão
-- **Barra de progresso** — acompanhe a conversão em tempo real com log detalhado
-- **Interface não trava** — conversão roda em thread separada
+## Por que usar?
 
-## Instalação
+Câmeras profissionais e smartphones salvam fotos em **DNG** (Digital Negative), um formato RAW da Adobe. Esse formato preserva a qualidade máxima, mas não abre em qualquer lugar. Este app converte seus DNGs para JPG ou PNG de forma rápida e em lote.
 
-### Pré-requisitos
+---
 
-- Python 3.12 ou superior
-- pip
-
-### Passos
+## Início Rápido
 
 ```bash
-# Clone o repositório
 git clone https://github.com/lucasftas/dng-to-jpg-or-png.git
 cd dng-to-jpg-or-png
-
-# Instale as dependências
 pip install -r requirements.txt
+python dng_converter.py
 ```
 
-### (Opcional) ImageMagick
+Pronto — a interface gráfica vai abrir. Selecione a pasta com seus DNGs e clique em **Converter**.
 
-Para máxima compatibilidade com arquivos DNG exóticos, instale o [ImageMagick](https://imagemagick.org/script/download.php). O app funciona sem ele, mas o usa como fallback quando os outros métodos falham.
+---
 
-## Uso
+## 3 Formas de Usar
 
-### Menu de Contexto (recomendado)
-
-Instale o menu de contexto do Windows uma vez:
-
-```bash
-python dng_converter.py install
-```
-
-Agora basta **clicar com botão direito** em qualquer pasta no Explorer e escolher:
-- **Converter DNG → JPG** — converte todos os DNGs da pasta e subpastas para JPG (qualidade 95)
-- **Converter DNG → PNG** — converte todos os DNGs da pasta e subpastas para PNG
-
-Para remover o menu de contexto:
-
-```bash
-python dng_converter.py uninstall
-```
-
-### Interface Gráfica (GUI)
+### 1. Interface Gráfica (GUI)
 
 ```bash
 python dng_converter.py
 ```
 
 1. Clique em **Selecionar Pasta** ou **Selecionar Arquivo(s)**
-2. Marque **Buscar em subpastas** se quiser busca recursiva
-3. Escolha o formato: **JPG** ou **PNG**
-4. Ajuste a qualidade JPG se necessário (padrão: 95)
-5. Clique em **Converter**
-6. Acompanhe o progresso na barra e no log
+2. Escolha o formato: **JPG** ou **PNG**
+3. Ajuste a qualidade (para JPG, padrão: 95)
+4. Clique em **Converter** e acompanhe o progresso
 
-### Linha de Comando (CLI)
+### 2. Menu de Contexto do Windows (recomendado)
+
+Instale uma vez:
 
 ```bash
-# Converter pasta inteira (recursivo por padrão)
+python dng_converter.py install
+```
+
+Depois, basta **clicar com botão direito** em qualquer pasta no Explorer:
+
+- **Converter DNG → JPG** — converte tudo (incluindo subpastas)
+- **Converter DNG → PNG** — idem, em PNG
+
+Para remover: `python dng_converter.py uninstall`
+
+### 3. Linha de Comando (CLI)
+
+```bash
+# Pasta inteira (busca em subpastas por padrão)
 python dng_converter.py convert "C:\Fotos\Viagem" --format jpg --quality 90
 
-# Converter sem buscar em subpastas
+# Sem buscar em subpastas
 python dng_converter.py convert "C:\Fotos" --format png --no-recursive
 ```
 
-## Estrutura do Projeto
+---
 
-```
-dng-to-jpg-or-png/
-├── dng_converter.py    # Aplicação principal (GUI + conversão)
-├── requirements.txt    # Dependências Python
-├── CLAUDE.md           # Instruções para desenvolvimento com IA
-├── .gitignore
-└── README.md
-```
+## Funcionalidades
 
-## Dependências
+| Recurso | Descrição |
+|---------|-----------|
+| Conversão em lote | Converte centenas de arquivos de uma vez |
+| Busca recursiva | Encontra DNGs em subpastas automaticamente |
+| 3 métodos de conversão | `rawpy` → `Pillow` → `ImageMagick` (tenta o próximo se um falhar) |
+| Qualidade ajustável | Controle de 1–100 para JPG |
+| Interface responsiva | Barra de progresso em tempo real, sem travar |
+| Salva ao lado do original | Mesmo diretório, mesmo nome, só muda a extensão |
 
-| Pacote   | Função                                      |
-|----------|---------------------------------------------|
-| `Pillow` | Processamento de imagem, leitura DNG (TIFF) |
-| `rawpy`  | Processamento RAW via LibRaw                 |
+---
 
-## Como funciona
+## Requisitos
 
-O formato DNG (Digital Negative) é um formato RAW aberto baseado em TIFF, criado pela Adobe. O app tenta converter usando múltiplos métodos em cascata:
+- **Python 3.12+**
+- **Pillow** e **rawpy** (instalados via `pip install -r requirements.txt`)
+- **ImageMagick** *(opcional)* — [baixe aqui](https://imagemagick.org/script/download.php) para compatibilidade com DNGs mais exóticos
 
-1. **rawpy/LibRaw** — biblioteca nativa de processamento RAW, melhor qualidade
-2. **Pillow** — como DNG é baseado em TIFF, o Pillow consegue ler a maioria dos arquivos DNG diretamente
-3. **ImageMagick** — fallback via linha de comando, suporta praticamente qualquer formato
+---
+
+## Como funciona por dentro
+
+O DNG é um formato RAW baseado em TIFF. O app tenta converter usando 3 métodos em cascata:
+
+1. **rawpy/LibRaw** — melhor qualidade, ideal para RAW puro
+2. **Pillow** — lê DNG como TIFF, funciona com a maioria dos arquivos
+3. **ImageMagick** — fallback via linha de comando, suporta praticamente tudo
 
 Se um método falha, o próximo é tentado automaticamente. O log mostra qual método foi usado para cada arquivo.
+
+---
 
 ## Licença
 
