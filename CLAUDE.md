@@ -32,3 +32,7 @@ python dng_converter.py uninstall    # Remove menu de contexto
 ## Convenções
 - Commits em português com prefixo convencional (feat:, fix:, docs:, refactor:)
 - Manter app simples e arquivo único
+
+## Instaladores
+
+Sempre que o projeto gerar um instalador funcional (`.exe`, `.msi`, `.dmg`, `.AppImage`, etc.), salvar a última versão funcional na pasta `~Instaladores/` na raiz do projeto. Manter apenas a versão mais recente. Se o projeto não gera instalador, ignorar esta regra.
